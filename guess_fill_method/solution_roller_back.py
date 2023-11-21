@@ -9,9 +9,11 @@ class SolutionRollerBack:
     def roll_back(backups_boards: list) -> array:
 
         board_configuration = backups_boards.pop()
-        min_key, min_values, array_board = board_configuration
-        board = array_board.tolist()
+        min_key, min_values, board = board_configuration
         current_guess = min_values.pop()
-        board[floor(min_key / 9)][min_key % 9] = current_guess
+        board[floor(min_key / 9), min_key % 9] = current_guess
+
+        '''if len(min_values) > 0:
+            backups_boards.append([min_key, min_values, board])'''
 
         return board

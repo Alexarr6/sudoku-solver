@@ -10,7 +10,10 @@ class PossibleValuesChecker:
 
         for value in row:
             if value != ".":
-                possible_solutions.remove(value)
+                try:
+                    possible_solutions.remove(value)
+                except:
+                    pass
 
         return possible_solutions
 
@@ -22,6 +25,9 @@ class PossibleValuesChecker:
         for row in square:
             for value in row:
                 if value != ".":
-                    possible_solutions.remove(value)
+                    try:
+                        possible_solutions.remove(value)
+                    except:
+                        pass
 
         return possible_solutions

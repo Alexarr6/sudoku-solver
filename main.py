@@ -1,15 +1,11 @@
-# import pickle
 from typing import List
 from numpy import array
 import numpy as np
 
-from sudoku_solver.basic_fill_method.possible_solutions_creator import PossibleSolutionsCreator
 from sudoku_solver.deep_fill_method.deep_cell_filler import DeepCellFiller
 from sudoku_solver.guess_fill_method.solution_roller_back import SolutionRollerBack
-from sudoku_solver.situation.situation_computer import SituationComputer
 from sudoku_solver.basic_fill_method.basic_cell_filler import BasicCellFiller
 from sudoku_solver.guess_fill_method.decision_maker import DecisionMaker
-# from sudoku_solver.repositories.sudoku_scrapper import SudokuScrapper
 from sudoku_solver.valid_sudoku_checker import ValidSudokuChecker
 
 
@@ -20,48 +16,24 @@ class SudokuSolver:
 
     def solve(self, board: List[List[str]]) -> List[List[str]]:
 
-        previous_board = [["."]]
-        array_board = np.array(board)
+        board = np.array(board)
 
-        hash_map_situation_cell = SituationComputer.compute_cell_situation()
-        hash_map_situation_row, hash_map_situation_column, hash_map_situation_square = \
-            SituationComputer.compute_structure_situation()
+        while True:
 
-        while (previous_board != array_board).any():
+            previous_board = board.copy()
+            board, hash_map_intersection = BasicCellFiller.fill(board)
 
-            array_board = np.array(board)
-            previous_board = array_board[:]
-
-            hash_map_row, hash_map_column, hash_map_square = \
-                PossibleSolutionsCreator.possible_solutions_creator(array_board)
-
-            board, hash_map_intersection = BasicCellFiller.fill(hash_map_row, hash_map_column, hash_map_square, board)
-
-            array_board = np.array(board)
-
-            if hash_map_intersection == {}:
+            if hash_map_intersection == {} and ValidSudokuChecker.check(board):
                 return board
 
-            if (previous_board == array_board).all():
-                board = DeepCellFiller.fill(
-                    hash_map_intersection,
-                    hash_map_situation_cell,
-                    hash_map_situation_row,
-                    hash_map_situation_column,
-                    hash_map_situation_square,
-                    board
-                )
+            if (previous_board == board).all():
+                board = DeepCellFiller.fill(hash_map_intersection, board)
 
-            array_board = np.array(board)
-
-            if (previous_board == array_board).all():
-                print("Guessing!")
+            if (previous_board == board).all():
                 board = DecisionMaker.make(hash_map_intersection, board, self.backups_boards)
 
             if not ValidSudokuChecker.check(board):
                 board = SolutionRollerBack.roll_back(self.backups_boards)
-
-            array_board = np.array(board)
 
 
 board_1 = [["5", "3", ".", ".", "7", ".", ".", ".", "."],
@@ -124,16 +96,6 @@ board_6 = [[".", ".", ".", "2", ".", ".", ".", "6", "3"],
            ["5", ".", "3", "7", ".", ".", ".", ".", "8"],
            ["4", "7", ".", ".", ".", "1", ".", ".", "."]]
 
-white = [[".", ".", ".", ".", ".", ".", ".", ".", "."],
-         [".", ".", ".", ".", ".", ".", ".", ".", "."],
-         [".", ".", ".", ".", ".", ".", ".", ".", "."],
-         [".", ".", ".", ".", ".", ".", ".", ".", "."],
-         [".", ".", ".", ".", ".", ".", ".", ".", "."],
-         [".", ".", ".", ".", ".", ".", ".", ".", "."],
-         [".", ".", ".", ".", ".", ".", ".", ".", "."],
-         [".", ".", ".", ".", ".", ".", ".", ".", "."],
-         [".", ".", ".", ".", ".", ".", ".", ".", "."]]
-
 everest = [["8", ".", ".", ".", ".", ".", ".", ".", "."],
            [".", ".", "3", "6", ".", ".", ".", ".", "."],
            [".", "7", ".", ".", "9", ".", "2", ".", "."],
@@ -154,6 +116,26 @@ master_1 = [["8", ".", ".", ".", ".", "7", ".", "9", "."],
             [".", ".", "8", ".", ".", ".", ".", ".", "."],
             [".", ".", ".", ".", "7", ".", ".", ".", "3"]]
 
+master_2 = [["8", ".", ".", ".", ".", ".", ".", ".", "."],
+            [".", "2", "9", ".", ".", "4", ".", ".", "6"],
+            [".", ".", ".", ".", ".", ".", ".", ".", "."],
+            [".", ".", ".", ".", ".", "6", ".", ".", "."],
+            [".", "1", ".", "4", ".", ".", ".", "3", "."],
+            [".", ".", ".", ".", ".", ".", ".", ".", "."],
+            [".", "9", ".", "1", ".", ".", ".", "7", "."],
+            [".", ".", ".", ".", ".", ".", ".", ".", "."],
+            [".", ".", ".", ".", ".", ".", ".", ".", "."]]
+
+master_3 = [[".", ".", ".", ".", ".", ".", ".", ".", "."],
+            [".", ".", ".", ".", ".", ".", ".", ".", "."],
+            [".", ".", ".", ".", ".", ".", ".", ".", "."],
+            [".", ".", ".", ".", ".", ".", ".", ".", "."],
+            [".", ".", ".", ".", ".", ".", ".", ".", "."],
+            [".", ".", ".", ".", ".", ".", ".", ".", "."],
+            [".", ".", ".", ".", ".", ".", ".", ".", "."],
+            [".", ".", ".", ".", ".", ".", ".", ".", "."],
+            [".", ".", ".", ".", ".", ".", ".", ".", "."]]
+
 symmetric = [["1", ".", ".", "2", ".", ".", "3", ".", "."],
              ["2", ".", ".", "3", ".", ".", "4", ".", "."],
              ["3", ".", ".", "4", ".", ".", "5", ".", "."],
@@ -164,35 +146,14 @@ symmetric = [["1", ".", ".", "2", ".", ".", "3", ".", "."],
              [".", ".", "5", ".", ".", "6", ".", ".", "7"],
              [".", ".", "6", ".", ".", "7", ".", ".", "8"]]
 
-url = 'https://www.sudoku.name/index-es.php'
+boards = [board_1, board_2, board_3, board_4, board_5, board_6, master_1, master_2, master_3, everest, symmetric]
 
 if __name__ == "__main__":
-    solution = SudokuSolver().solve(master_1)
 
-    print()
-    print("------------------Solution------------------")
-    print()
-    print(array(solution))
+    for single_board in boards:
+        solution = SudokuSolver().solve(single_board)
 
-    '''unresolved_boards = []
-    resolved_boards = []
-    for i in range(10000):
-
-        try:
-            url_board = SudokuScrapper.scrap(url)
-            unresolved_boards.append(array(url_board))
-
-            solution = SudokuSolver().solve(url_board)
-            resolved_boards.append(array(solution))
-        except:
-            pass
-
-        if i % 20 == 0:
-            print("Iter:", i)
-
-        if i % 200 == 0:
-            with open('backup_data/unresolved_boards_10000.pkl', 'wb') as file:
-                pickle.dump(unresolved_boards, file)
-
-            with open('backup_data/resolved_boards_10000.pkl', 'wb') as file:
-                pickle.dump(resolved_boards, file)'''
+        print()
+        print("------------------Solution------------------")
+        print()
+        print(array(solution))

@@ -5,25 +5,16 @@ from math import floor
 class DeepSearcher:
 
     @staticmethod
-    def search(
-            row_neighbours: set,
-            keys: set,
-            key: int,
-            key_values: set,
-            hash_map_intersection: dict,
-            board: array
-    ) -> array:
+    def search(row_neighbours: set, keys: set, key: int, hash_map_intersection: dict, board: array) -> array:
 
-        intersection = row_neighbours & keys
         not_key_set = set()
+        key_values = hash_map_intersection[key]
 
-        for value in intersection:
-
+        for value in row_neighbours & keys:
             if value == key:
-                pass
-            else:
-                not_key_values = hash_map_intersection[value]
-                not_key_set = not_key_set.union(set(not_key_values))
+                continue
+
+            not_key_set = not_key_set.union(set(hash_map_intersection[value]))
 
         difference = key_values.difference(not_key_set)
 

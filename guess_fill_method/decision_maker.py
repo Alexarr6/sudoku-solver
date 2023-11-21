@@ -13,21 +13,19 @@ class DecisionMaker:
         min_key, min_values = 0, 0
 
         for key, value in hash_map_intersection.items():
-            current_len = len(value)
-            if current_len == 2:
+            if len(value) == 2:
                 min_key, min_values = key, value
                 break
 
-            if current_len < min_len:
-                min_len = current_len
+            if len(value) < min_len:
+                min_len = len(value)
                 min_key, min_values = key, value
 
-        if min_values != 0:
-            try:
-                current_guess = min_values.pop()
-                backups_boards.append([min_key, min_values, array(board)])
-                board[floor(min_key / 9)][min_key % 9] = current_guess
-            except:
-                board = SolutionRollerBack.roll_back(backups_boards)
+        try:
+            current_guess = min_values.pop()
+            backups_boards.append([min_key, min_values, array(board)])
+            board[floor(min_key / 9)][min_key % 9] = current_guess
+        except:
+            board = SolutionRollerBack.roll_back(backups_boards)
 
         return board
