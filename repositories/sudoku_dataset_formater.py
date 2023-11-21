@@ -1,56 +1,48 @@
 import pandas as pd
 import numpy as np
 import pickle
+from typing import List
 
-sudoku = pd.read_csv('../data/sudoku.csv')
-sudoku_sample = sudoku[:10000]
+sudoku_dataset = pd.read_csv('../sudoku_solver/repositories/data/sudoku.csv')
+sudoku_sample = sudoku_dataset[:100000]
 
 solutions = list(sudoku_sample.loc[:, 'solution'])
 puzzles = list(sudoku_sample.loc[:, 'puzzle'])
 
-unresolved_boards = []
-for puzzle in puzzles:
-    board = []
-    counter = 0
-    row = []
-    for value in puzzle:
 
-        counter += 1
-        if value == '0':
-            row.append('.')
-        else:
-            row.append(value)
+class SudokuReformatter:
 
-        if counter == 9:
+    @staticmethod
+    def reformat(sudokus: List[str]) -> List[np.array]:
+
+        formatted_sudokus = []
+        for sudoku in sudokus:
+            board = []
             counter = 0
-            board.append(row)
             row = []
+            for value in sudoku:
 
-    unresolved_boards.append(np.array(board))
+                counter += 1
+                if value == '0':
+                    row.append('.')
+                else:
+                    row.append(value)
 
-resolved_boards = []
-for solution in solutions:
-    board = []
-    counter = 0
-    row = []
-    for value in solution:
+                if counter == 9:
+                    counter = 0
+                    board.append(row)
+                    row = []
 
-        counter += 1
-        if value == '0':
-            row.append('.')
-        else:
-            row.append(value)
+            formatted_sudokus.append(np.array(board))
 
-        if counter == 9:
-            counter = 0
-            board.append(row)
-            row = []
-
-    resolved_boards.append(np.array(board))
+        return formatted_sudokus
 
 
-with open('../data/unresolved_boards_dataset_10000.pkl', 'wb') as file:
+unresolved_boards = SudokuReformatter().reformat(puzzles)
+resolved_boards = SudokuReformatter().reformat(solutions)
+
+with open('../sudoku_solver/repositories/data/unresolved_boards_dataset_100000.pkl', 'wb') as file:
     pickle.dump(unresolved_boards, file)
 
-with open('../data/resolved_boards_dataset_10000.pkl', 'wb') as file:
+with open('../sudoku_solver/repositories/data/resolved_boards_dataset_100000.pkl', 'wb') as file:
     pickle.dump(resolved_boards, file)
