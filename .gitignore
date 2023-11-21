@@ -2,3 +2,7 @@
 .DS_Store
 
 __pycache__/
+basic_fill_method/__pycache__/
+deep_fill_method/__pycache__/
+guess_fill_method/__pycache__/
+repositories/.DS_Store
