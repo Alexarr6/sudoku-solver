@@ -7,7 +7,7 @@ from guess_fill_method.solution_roller_back import SolutionRollerBack
 from basic_fill_method.basic_cell_filler import BasicCellFiller
 from guess_fill_method.decision_maker import DecisionMaker
 from valid_sudoku_checker import ValidSudokuChecker
-from example_boards import boards
+from repositories.example_boards import boards
 
 
 class SudokuSolver:
