@@ -1,7 +1,7 @@
 from numpy import array
 from math import floor
 
-from sudoku_solver.guess_fill_method.solution_roller_back import SolutionRollerBack
+from guess_fill_method.solution_roller_back import SolutionRollerBack
 
 
 class DecisionMaker:

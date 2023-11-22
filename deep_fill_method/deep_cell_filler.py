@@ -1,7 +1,7 @@
 from numpy import array
 
-from sudoku_solver.deep_fill_method.searcher.row_column_searcher import DeepSearcher
-from sudoku_solver.situation.situation import hash_map_situation_cell, hash_map_situation_row,\
+from deep_fill_method.searcher.row_column_searcher import DeepSearcher
+from situation.situation import hash_map_situation_cell, hash_map_situation_row,\
     hash_map_situation_column, hash_map_situation_square
 
 

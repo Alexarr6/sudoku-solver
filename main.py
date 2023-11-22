@@ -2,11 +2,11 @@ from typing import List
 from numpy import array
 import numpy as np
 
-from sudoku_solver.deep_fill_method.deep_cell_filler import DeepCellFiller
-from sudoku_solver.guess_fill_method.solution_roller_back import SolutionRollerBack
-from sudoku_solver.basic_fill_method.basic_cell_filler import BasicCellFiller
-from sudoku_solver.guess_fill_method.decision_maker import DecisionMaker
-from sudoku_solver.valid_sudoku_checker import ValidSudokuChecker
+from deep_fill_method.deep_cell_filler import DeepCellFiller
+from guess_fill_method.solution_roller_back import SolutionRollerBack
+from basic_fill_method.basic_cell_filler import BasicCellFiller
+from guess_fill_method.decision_maker import DecisionMaker
+from valid_sudoku_checker import ValidSudokuChecker
 
 
 class SudokuSolver:

@@ -1,6 +1,6 @@
 from typing import List, Dict
 from numpy import array
-from sudoku_solver.basic_fill_method.checkers.possible_values_checker import PossibleValuesChecker
+from basic_fill_method.checkers.possible_values_checker import PossibleValuesChecker
 
 
 class PossibleSolutionsCreator:

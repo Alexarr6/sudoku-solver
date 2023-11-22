@@ -2,7 +2,7 @@ from numpy import array
 from typing import Tuple
 from math import floor
 
-from sudoku_solver.basic_fill_method.possible_solutions_creator import PossibleSolutionsCreator
+from basic_fill_method.possible_solutions_creator import PossibleSolutionsCreator
 
 
 class BasicCellFiller:

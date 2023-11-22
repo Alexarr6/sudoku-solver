@@ -1,6 +1,6 @@
 import pickle
 
-from sudoku_solver.main import SudokuSolver
+from main import SudokuSolver
 
 with open('../repositories/data/unresolved_boards_dataset_100000.pkl', 'rb') as file:
     unresolved_boards = pickle.load(file)
