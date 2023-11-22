@@ -1,6 +1,6 @@
 from numpy import array
 
-from deep_fill_method.searcher.row_column_searcher import DeepSearcher
+from deep_fill_method.searcher.deep_searcher import DeepSearcher
 from situation.situation import hash_map_situation_cell, hash_map_situation_row,\
     hash_map_situation_column, hash_map_situation_square
 
