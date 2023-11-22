@@ -23,7 +23,7 @@ class SudokuSolver:
             previous_board = board.copy()
             board, hash_map_intersection = BasicCellFiller.fill(board)
 
-            if hash_map_intersection == {} and ValidSudokuChecker.check(board):
+            if hash_map_intersection == {} and ValidSudokuChecker().check(board):
                 return board
 
             if (previous_board == board).all():
@@ -32,7 +32,7 @@ class SudokuSolver:
             if (previous_board == board).all():
                 board = DecisionMaker.make(hash_map_intersection, board, self.backups_boards)
 
-            if not ValidSudokuChecker.check(board):
+            if not ValidSudokuChecker().check(board):
                 board = SolutionRollerBack.roll_back(self.backups_boards)
 
 

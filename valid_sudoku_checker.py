@@ -1,34 +1,37 @@
-from typing import List
+from math import floor
+from numpy import array
+
+from situation.situation import hash_map_situation_cell, hash_map_situation_row, hash_map_situation_column, \
+    hash_map_situation_square
 
 
 class ValidSudokuChecker:
 
     @staticmethod
-    def check(board: List[List[str]]) -> bool:
+    def _set_values_getter(board: array, neighbours: set, key: int) -> set:
+        values = set()
+        for key in neighbours - {key}:
+            value = board[floor(key / 9), key % 9]
+            if value != '.':
+                values.add(value)
+        return values
 
-        N = 9
+    def check(self, board: array) -> bool:
 
-        rows = [set() for _ in range(N)]
-        cols = [set() for _ in range(N)]
-        boxes = [set() for _ in range(N)]
+        for key, value in hash_map_situation_cell.items():
+            neighbour_row = hash_map_situation_row[value[0]]
+            neighbour_column = hash_map_situation_column[value[1]]
+            neighbour_square = hash_map_situation_square[value[2]]
 
-        for r in range(N):
-            for c in range(N):
-                val = board[r][c]
-                if val == ".":
-                    continue
+            cell_value = board[floor(key / 9), key % 9]
 
-                if val in rows[r]:
-                    return False
-                rows[r].add(val)
+            row_values = self._set_values_getter(board, neighbour_row, key)
+            column_values = self._set_values_getter(board, neighbour_column, key)
+            square_values = self._set_values_getter(board, neighbour_square, key)
 
-                if val in cols[c]:
-                    return False
-                cols[c].add(val)
+            union = row_values | column_values | square_values
 
-                idx = (r // 3) * 3 + c // 3
-                if val in boxes[idx]:
-                    return False
-                boxes[idx].add(val)
+            if cell_value in union:
+                return False
 
         return True

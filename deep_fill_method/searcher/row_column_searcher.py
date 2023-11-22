@@ -21,6 +21,6 @@ class DeepSearcher:
         if len(difference) == 1:
 
             difference = difference.pop()
-            board[floor(key / 9)][key % 9] = difference
+            board[floor(key / 9), key % 9] = difference
 
         return board

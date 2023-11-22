@@ -1,5 +1,5 @@
 import pickle
-
+import time
 from main import SudokuSolver
 
 with open('../repositories/data/unresolved_boards_dataset_100000.pkl', 'rb') as file:
@@ -9,9 +9,10 @@ with open('../repositories/data/resolved_boards_dataset_100000.pkl', 'rb') as fi
     resolved_boards = pickle.load(file)
 
 
-n_sample = 100000
+n_sample = 5001
 total_solved = 0
 unsuccessfully_solved = 0
+inicio = time.time()
 for i in range(n_sample):
 
     unresolved_board = unresolved_boards[i]
@@ -23,9 +24,15 @@ for i in range(n_sample):
     except:
         unsuccessfully_solved += 1
 
+    if i % 5000 == 0:
+        print('Iter:', i)
+
+final = time.time()
 
 print()
 print("--------Results--------")
 print()
 print("Total solved:", total_solved)
 print("Total fails:", unsuccessfully_solved)
+print('Total time:', final - inicio)
+
