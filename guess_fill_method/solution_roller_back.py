@@ -13,7 +13,4 @@ class SolutionRollerBack:
         current_guess = min_values.pop()
         board[floor(min_key / 9), min_key % 9] = current_guess
 
-        '''if len(min_values) > 0:
-            backups_boards.append([min_key, min_values, board])'''
-
         return board

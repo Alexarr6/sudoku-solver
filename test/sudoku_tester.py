@@ -9,7 +9,7 @@ with open('../repositories/data/resolved_boards_dataset_100000.pkl', 'rb') as fi
     resolved_boards = pickle.load(file)
 
 
-n_sample = 5001
+n_sample = 100000
 total_solved = 0
 unsuccessfully_solved = 0
 inicio = time.time()
@@ -35,4 +35,3 @@ print()
 print("Total solved:", total_solved)
 print("Total fails:", unsuccessfully_solved)
 print('Total time:', final - inicio)
-

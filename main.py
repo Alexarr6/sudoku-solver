@@ -3,7 +3,6 @@ from numpy import array
 import numpy as np
 
 from deep_fill_method.deep_cell_filler import DeepCellFiller
-from guess_fill_method.solution_roller_back import SolutionRollerBack
 from basic_fill_method.basic_cell_filler import BasicCellFiller
 from guess_fill_method.decision_maker import DecisionMaker
 from valid_sudoku_checker import ValidSudokuChecker
@@ -32,9 +31,6 @@ class SudokuSolver:
 
             if (previous_board == board).all():
                 board = DecisionMaker.make(hash_map_intersection, board, self.backups_boards)
-
-            if not ValidSudokuChecker().check(board):
-                board = SolutionRollerBack.roll_back(self.backups_boards)
 
 
 if __name__ == "__main__":
