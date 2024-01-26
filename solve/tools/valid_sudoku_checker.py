@@ -1,7 +1,7 @@
 from math import floor
 from numpy import array
 
-from situation.situation import hash_map_situation_cell, hash_map_situation_row, hash_map_situation_column, \
+from solve.situation.situation import hash_map_situation_cell, hash_map_situation_row, hash_map_situation_column, \
     hash_map_situation_square
 
 

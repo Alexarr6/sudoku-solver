@@ -1,11 +1,11 @@
 import pickle
 import time
-from main import SudokuSolver
+from solve.main.main import SudokuSolver
 
-with open('../repositories/data/unresolved_boards_dataset_100000.pkl', 'rb') as file:
+with open('../solve/repositories/data/unresolved_boards_dataset_100000.pkl', 'rb') as file:
     unresolved_boards = pickle.load(file)
 
-with open('../repositories/data/resolved_boards_dataset_100000.pkl', 'rb') as file:
+with open('../solve/repositories/data/resolved_boards_dataset_100000.pkl', 'rb') as file:
     resolved_boards = pickle.load(file)
 
 

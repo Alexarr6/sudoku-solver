@@ -5,9 +5,9 @@
 __pycache__/
 *.py[cod]
 *$py.class
-basic_fill_method/__pycache__/
-deep_fill_method/__pycache__/
-guess_fill_method/__pycache__/
-repositories/.DS_Store
-repositories/data/
+solve/fillers/basic_fill_method/__pycache__/
+solve/fillers/deep_fill_method/__pycache__/
+solve/fillers/guess_fill_method/__pycache__/
+solve/repositories/.DS_Store
+solve/repositories/data/
 *.pyc
