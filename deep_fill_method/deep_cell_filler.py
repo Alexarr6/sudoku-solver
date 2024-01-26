@@ -1,17 +1,16 @@
 from numpy import array
 
 from deep_fill_method.searcher.deep_searcher import DeepSearcher
+from situation.situation_computer import SituationComputer
 
 
 class DeepCellFiller:
 
-    def __init__(
-            self,
-            hash_map_situation_cell: dict,
-            hash_map_situation_row: dict,
-            hash_map_situation_column: dict,
-            hash_map_situation_square: dict
-    ):
+    def __init__(self):
+
+        hash_map_situation_cell = SituationComputer.compute_cell_situation()
+        hash_map_situation_row, hash_map_situation_column, hash_map_situation_square = \
+            SituationComputer.compute_structure_situation()
 
         self.hash_map_situation_cell = hash_map_situation_cell
         self.hash_map_situation_row = hash_map_situation_row

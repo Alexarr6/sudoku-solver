@@ -5,7 +5,6 @@ import numpy as np
 from deep_fill_method.deep_cell_filler import DeepCellFiller
 from basic_fill_method.basic_cell_filler import BasicCellFiller
 from guess_fill_method.decision_maker import DecisionMaker
-from situation.situation_computer import SituationComputer
 from valid_sudoku_checker import ValidSudokuChecker
 from repositories.example_boards import boards
 
@@ -18,17 +17,7 @@ class SudokuSolver:
     def solve(self, board: List[List[str]]) -> List[List[str]]:
 
         board = np.array(board)
-
-        hash_map_situation_cell = SituationComputer.compute_cell_situation()
-        hash_map_situation_row, hash_map_situation_column, hash_map_situation_square = \
-            SituationComputer.compute_structure_situation()
-
-        deep_cell_filler = DeepCellFiller(
-            hash_map_situation_cell,
-            hash_map_situation_row,
-            hash_map_situation_column,
-            hash_map_situation_square
-        )
+        deep_cell_filler = DeepCellFiller()
 
         while True:
 
