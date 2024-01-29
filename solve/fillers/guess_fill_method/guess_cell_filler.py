@@ -25,11 +25,11 @@ class GuessCellFiller(CellFiller):
                 min_len = len(value)
                 min_key, min_values = key, value
 
-        try:
+        if min_values == 0 or min_values == set():
+            board = SolutionRollerBack.roll_back(self.backups_boards)
+        else:
             current_guess = min_values.pop()
             self.backups_boards.append([min_key, min_values, array(board)])
             board = Board.fill_cell(board, floor(min_key / 9), min_key % 9, current_guess)
-        except:
-            board = SolutionRollerBack.roll_back(self.backups_boards)
 
         return board

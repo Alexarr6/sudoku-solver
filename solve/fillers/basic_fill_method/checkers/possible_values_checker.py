@@ -18,11 +18,11 @@ class PossibleValuesChecker:
         return possible_solutions
 
     @staticmethod
-    def check_square(square: array) -> set:
+    def check_box(box: array) -> set:
 
         possible_solutions = {"1", "2", "3", "4", "5", "6", "7", "8", "9"}
 
-        for row in square:
+        for row in box:
             for value in row:
                 if value != ".":
                     try:

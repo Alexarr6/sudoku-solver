@@ -9,5 +9,5 @@ solve/fillers/basic_fill_method/__pycache__/
 solve/fillers/deep_fill_method/__pycache__/
 solve/fillers/guess_fill_method/__pycache__/
 solve/repositories/.DS_Store
-solve/repositories/data/
+test/data/
 *.pyc

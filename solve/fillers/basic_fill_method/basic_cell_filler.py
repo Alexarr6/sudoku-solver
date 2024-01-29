@@ -8,11 +8,11 @@ class BasicCellFiller(CellFiller):
 
     def fill(self, board: array, cell_solutions: dict) -> array:
 
-        for i in range(9):
-            for j in range(9):
-                if Board.is_empty_cell(board, i, j):
-                    intersection = cell_solutions[i * 9 + j]
+        for row in range(9):
+            for column in range(9):
+                if Board.is_empty_cell(board, row, column):
+                    intersection = cell_solutions[row * 9 + column]
                     if len(intersection) == 1:
-                        board = Board.fill_cell(board, i, j, list(intersection)[0])
+                        board = Board.fill_cell(board, row, column, list(intersection)[0])
 
         return board
