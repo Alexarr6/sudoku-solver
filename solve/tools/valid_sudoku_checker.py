@@ -1,8 +1,8 @@
 from math import floor
 from numpy import array
 
-from solve.situation.situation import hash_map_situation_cell, hash_map_situation_row, hash_map_situation_column, \
-    hash_map_situation_square
+from solve.situation.situation import cell_situation, row_situation, column_situation, \
+    box_situation
 
 
 class ValidSudokuChecker:
@@ -18,18 +18,18 @@ class ValidSudokuChecker:
 
     def check(self, board: array) -> bool:
 
-        for key, value in hash_map_situation_cell.items():
-            neighbour_row = hash_map_situation_row[value[0]]
-            neighbour_column = hash_map_situation_column[value[1]]
-            neighbour_square = hash_map_situation_square[value[2]]
+        for key, value in cell_situation.items():
+            neighbour_row = row_situation[value[0]]
+            neighbour_column = column_situation[value[1]]
+            neighbour_box = box_situation[value[2]]
 
             cell_value = board[floor(key / 9), key % 9]
 
             row_values = self._set_values_getter(board, neighbour_row, key)
             column_values = self._set_values_getter(board, neighbour_column, key)
-            square_values = self._set_values_getter(board, neighbour_square, key)
+            box_values = self._set_values_getter(board, neighbour_box, key)
 
-            union = row_values | column_values | square_values
+            union = row_values | column_values | box_values
 
             if cell_value in union:
                 return False

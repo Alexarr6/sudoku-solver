@@ -12,18 +12,18 @@ class CellSolutionComputer:
     def compute(board: array) -> dict:
 
         cell_solutions = {}
-        row_possible_solutions, column_possible_solutions, square_possible_solutions = \
+        row_possible_solutions, column_possible_solutions, box_possible_solutions = \
             PossibleSolutionsCreator.create(board)
 
         for row in range(9):
             row_solutions_set = row_possible_solutions[row]
             for column in range(9):
                 if Board.is_empty_cell(board, row, column):
-                    square = 3 * floor(row / 3) + floor(column / 3)
                     column_solutions_set = column_possible_solutions[column]
-                    square_solutions_set = square_possible_solutions[square]
+                    box = 3 * floor(row / 3) + floor(column / 3)
+                    box_solutions_set = box_possible_solutions[box]
 
-                    intersection = row_solutions_set & column_solutions_set & square_solutions_set
+                    intersection = row_solutions_set & column_solutions_set & box_solutions_set
                     cell_solutions[row * 9 + column] = intersection
 
         return cell_solutions
