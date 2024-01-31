@@ -29,7 +29,7 @@ class Board:
         return False
 
     @staticmethod
-    def find_solution(board: List[List[str]], cell_solutions: dict) -> bool:
+    def is_complete(board: List[List[str]], cell_solutions: dict) -> bool:
 
         if not cell_solutions and ValidSudokuChecker().check(board):
             return True

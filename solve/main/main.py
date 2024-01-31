@@ -21,7 +21,7 @@ class SudokuSolver:
         deep_cell_filler = DeepCellFiller()
         cell_solutions = CellSolutionComputer.compute(board)
 
-        while not Board.find_solution(board, cell_solutions):
+        while not Board.is_complete(board, cell_solutions):
 
             previous_board = board.copy()
 
