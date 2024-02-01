@@ -1,11 +1,11 @@
-from typing import List
+from typing import List, Optional
 from numpy import array
 import numpy as np
 
+from solve.board.board import Board
 from solve.fillers.deep_fill_method.deep_cell_filler import DeepCellFiller
 from solve.fillers.basic_fill_method.basic_cell_filler import BasicCellFiller
 from solve.fillers.guess_fill_method.guess_cell_filler import GuessCellFiller
-from solve.tools.valid_sudoku_checker import ValidSudokuChecker
 from solve.repositories.example_boards import boards
 from solve.tools.cell_solution_computer import CellSolutionComputer
 
@@ -15,26 +15,30 @@ class SudokuSolver:
     def __init__(self):
         self.backups_boards = []
 
-    def solve(self, board: List[List[str]]) -> List[List[str]]:
+    def solve(self, board: List[List[str]]) -> Optional[List[List[str]]]:
 
         board = np.array(board)
         deep_cell_filler = DeepCellFiller()
+        cell_solutions = CellSolutionComputer.compute(board)
 
-        while True:
+        while not Board.is_complete(board, cell_solutions):
 
             previous_board = board.copy()
-            cell_solutions = CellSolutionComputer.compute(board)
+
+            if Board.has_no_solution(board, self.backups_boards):
+                return None
 
             board = BasicCellFiller().fill(board, cell_solutions)
-
-            if cell_solutions == {} and ValidSudokuChecker().check(board):
-                return board
 
             if (previous_board == board).all():
                 board = deep_cell_filler.fill(board, cell_solutions)
 
             if (previous_board == board).all():
                 board = GuessCellFiller(self.backups_boards).fill(board, cell_solutions)
+
+            cell_solutions = CellSolutionComputer.compute(board)
+
+        return board
 
 
 if __name__ == "__main__":
