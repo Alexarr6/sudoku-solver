@@ -11,3 +11,4 @@ solve/fillers/guess_fill_method/__pycache__/
 solve/repositories/.DS_Store
 test/data/
 *.pyc
+*.egg-info/
