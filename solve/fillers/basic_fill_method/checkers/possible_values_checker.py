@@ -12,7 +12,7 @@ class PossibleValuesChecker:
             if value != ".":
                 try:
                     possible_solutions.remove(value)
-                except:
+                except KeyError:
                     pass
 
         return possible_solutions
@@ -27,7 +27,7 @@ class PossibleValuesChecker:
                 if value != ".":
                     try:
                         possible_solutions.remove(value)
-                    except:
+                    except KeyError:
                         pass
 
         return possible_solutions

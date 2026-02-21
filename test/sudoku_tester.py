@@ -21,7 +21,7 @@ for index in range(n_sample):
     try:
         solution = SudokuSolver().solve(unresolved_board)
         total_solved += (solution == resolved_board).all()
-    except:
+    except Exception:
         unsuccessfully_solved += 1
 
     if index % 5000 == 0:
